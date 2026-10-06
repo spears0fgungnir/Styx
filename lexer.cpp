@@ -73,6 +73,11 @@ vector<unique_ptr<StyxObject>> lexer(string source){
             }
             code.push_back(make_unique<StyxNumber>(temp));
         }
+	else if (source[pos]==39){	
+	    pos++;
+	    code.push_back(make_unique<StyxString>(string(1,source[pos])));
+	    pos++;
+	}
         else {
             code.push_back(make_unique<StyxCommand>(string(1,source[pos])));
             pos++;
@@ -82,7 +87,7 @@ vector<unique_ptr<StyxObject>> lexer(string source){
 }
 
 int main(int argc, char* argv[]){
-    string source = "ty5735038\"poooo\"iyt23582too";
+    string source = "ty573'h5038\"poooo\"iyt23582too";
     auto code = lexer(source);
     for(auto& obj:code){
         obj->repr();
